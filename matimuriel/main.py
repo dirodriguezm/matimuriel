@@ -16,7 +16,7 @@ def main(
     delimiter_list = delimiters.split("XX")
     mails = try_read_csv(Path(mails_path), delimiter_list)
     mails["repetido"] = False
-    for path in Path(files_path).iterdir():
+    for path in Path(files_path).glob("**/*.csv"):
         dataframe = try_read_csv(path, delimiter_list)
         mails["mask"] = mails[mail_column].isin(dataframe[mail_column])
         mails.repetido = mails.loc[:, ["repetido", "mask"]].any(axis=1)
